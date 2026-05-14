@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Os 15 Anos de Mariana</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-content">
+      <canvas id="loadingCanvas"></canvas>
+      <div class="loading-text">
+        <span class="loading-title">Mariana</span>
+        <div class="loading-bar-wrapper"><div class="loading-bar" id="loadingBar"></div></div>
+        <span class="loading-subtitle">Preparando uma noite mágica...</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="audio-btn" id="audioBtn" title="Música ambiente">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path class="audio-icon-play" d="M9 18V6l12 6-12 6z" fill="currentColor"/>
+      <path class="audio-icon-pause" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor" style="display:none"/>
+    </svg>
+    <audio id="bgAudio" loop></audio>
+  </div>
+
+  <canvas id="starryCanvas" class="starry-canvas"></canvas>
+  <canvas id="particleCanvas" class="particle-canvas"></canvas>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-badge fade-in">&#10022; Você está convidado &#10022;</div>
+      <h1 class="hero-title fade-in">
+        <span class="hero-name">Mariana</span>
+        <span class="hero-subtitle">completa seus</span>
+        <span class="hero-age">15 anos</span>
+      </h1>
+      <p class="hero-quote fade-in"><em>"Uma noite mágica sob as estrelas."</em></p>
+      <div class="hero-date fade-in">
+        <span class="hero-date-day">20</span>
+        <div class="hero-date-details">
+          <span>Junho</span>
+          <span>2026 &middot; Sábado</span>
+        </div>
+      </div>
+      <a href="#rsvp" class="btn-primary fade-in">
+        <span>Confirmar Presença</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/></svg>
+      </a>
+    </div>
+    <div class="scroll-hint">
+      <span>Role para baixo</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about section-fade" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">&#10022; O Evento &#10022;</span>
+        <h2 class="section-title">Uma Noite Inesquecível</h2>
+        <p class="section-desc">Como as estrelas que pintaram o céu de Van Gogh, esta noite será eterna na memória de cada um de nós.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card glass-card">
+          <div class="about-icon">🕗</div><h3>Horário</h3>
+          <p>22h00 — Recepção</p><p>23h00 — Cerimônia</p><p>00h30 — Festa</p>
+        </div>
+        <div class="about-card glass-card">
+          <div class="about-icon">📍</div><h3>Local</h3>
+          <p>DF Eventos - Delícias Festas e Decorações</p><p>Avenida Ivaí, 1219, Bairro Dom Bosco, Belo Horizonte - MG, CEP 30850-000</p>
+        </div>
+        <div class="about-card glass-card">
+          <div class="about-icon">👗</div><h3>Dress Code</h3>
+          <p>Esporte fino</p>
+          <p>Tons de azul, dourado e prata</p>
+          <p>são reservados para a debutante e decoração</p>
+        </div>
+        <div class="about-card glass-card about-card-wide">
+          <div class="about-icon">✨</div><h3>Sobre a Noite</h3>
+          <p>“Preparem-se para uma noite extraordinária, cheia de brilho, magia e momentos inesquecíveis... Meus 15 anos não seriam completos sem vocês ✨🌙”</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="countdown-section section-fade" id="countdown">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">&#10022; Contagem Regressiva &#10022;</span>
+        <h2 class="section-title" id="countdownTitle">A Magia se Aproxima</h2>
+      </div>
+
+      <!-- Grade com os blocos numéricos -->
+      <div class="countdown-grid" id="countdownGrid">
+        <div class="countdown-item glass-card"><span class="countdown-number" id="cdDays">00</span><span class="countdown-label">Dias</span></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-item glass-card"><span class="countdown-number" id="cdHours">00</span><span class="countdown-label">Horas</span></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-item glass-card"><span class="countdown-number" id="cdMinutes">00</span><span class="countdown-label">Minutos</span></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-item glass-card"><span class="countdown-number" id="cdSeconds">00</span><span class="countdown-label">Segundos</span></div>
+      </div>
+
+      <!-- Mensagem elegante exibida quando o evento começa -->
+      <div class="countdown-ended glass-card" id="countdownEnded" style="display:none">
+        <span class="countdown-ended-star">&#10022;</span>
+        <p class="countdown-ended-text">A grande noite começou</p>
+        <span class="countdown-ended-sub">Que esta noite seja eterna como as estrelas de Van Gogh ✨</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY — pronto para fotos reais; substitua src="foto-N.jpg" pelas imagens da família -->
+  <section class="gallery-section section-fade" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">&#10022; Galeria &#10022;</span>
+        <h2 class="section-title">Memórias em Luz</h2>
+        <p class="section-desc">Momentos que brilham como estrelas no céu de Van Gogh</p>
+      </div>
+      <div class="gallery-grid">
+
+        <!-- Item 1 — substitua src="foto-1.jpg" pela foto real -->
+        <div class="gallery-item" data-label="Sonho">
+          <img src="foto1.jpeg" alt="Mariana — Sonho" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="gallery-art gallery-art-1 gallery-placeholder"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-overlay-star">&#10022;</span>
+            <span class="gallery-label">Sonho</span>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="gallery-item" data-label="Elegância">
+          <img src="foto2.jpeg" alt="Mariana — Elegância" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="gallery-art gallery-art-2 gallery-placeholder"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-overlay-star">&#10022;</span>
+            <span class="gallery-label">Elegância</span>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="gallery-item" data-label="Magia">
+          <img src="foto3.jpeg" alt="Mariana — Magia" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="gallery-art gallery-art-3 gallery-placeholder"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-overlay-star">&#10022;</span>
+            <span class="gallery-label">Magia</span>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="gallery-item" data-label="Amor">
+          <img src="foto4.jpeg" alt="Mariana — Amor" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="gallery-art gallery-art-4 gallery-placeholder"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-overlay-star">&#10022;</span>
+            <span class="gallery-label">Amor</span>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="gallery-item" data-label="Luz">
+          <img src="foto5.jpeg" alt="Mariana — Luz" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="gallery-art gallery-art-5 gallery-placeholder"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-overlay-star">&#10022;</span>
+            <span class="gallery-label">Luz</span>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="gallery-item" data-label="Eternidade">
+          <img src="foto6.jpeg" alt="Mariana — Eternidade" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+          <div class="gallery-art gallery-art-6 gallery-placeholder"></div>
+          <div class="gallery-overlay">
+            <span class="gallery-overlay-star">&#10022;</span>
+            <span class="gallery-label">Eternidade</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="rsvp-section section-fade" id="rsvp">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">&#10022; Confirmação &#10022;</span>
+        <h2 class="section-title">Confirme sua Presença</h2>
+        <p class="section-desc">Sua presença tornará esta noite ainda mais especial</p>
+      </div>
+      <div class="rsvp-wrapper">
+        <div class="rsvp-form-card glass-card">
+
+          <div class="form-group">
+            <label for="guestName">Seu Nome</label>
+            <input type="text" id="guestName" placeholder="Digite seu nome completo" autocomplete="off" />
+          </div>
+
+          <div class="form-group">
+            <div class="companions-label-row">
+              <label>Acompanhantes <span class="companions-limit-hint" id="companionsLimitHint">(máx. 5)</span></label>
+              <button class="btn-add-companion" id="addCompanionBtn" type="button">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+                Adicionar acompanhante
+              </button>
+            </div>
+            <div class="companions-list" id="companionsList"></div>
+            <p class="companions-empty-hint" id="companionsEmptyHint">Nenhum acompanhante adicionado.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="guestMessage">Mensagem para Mariana</label>
+            <textarea id="guestMessage" placeholder="Deixe uma mensagem carinhosa..." rows="3"></textarea>
+          </div>
+
+          <button class="btn-primary" id="rsvpSubmit">
+            <span>Confirmar Presença</span>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/></svg>
+          </button>
+          <div class="rsvp-success" id="rsvpSuccess"><span>&#10022; Presença confirmada com sucesso! &#10022;</span></div>
+          <div class="rsvp-feedback" id="rsvpFeedback" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- SUGESTOES DE PRESENTES -->
+  <section class="gift-section section-fade" id="gifts">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">&#10022; Sugest&otilde;es de Presentes &#10022;</span>
+        <h2 class="section-title">Mimos para Mariana</h2>
+        <p class="section-desc">Uma curadoria delicada para quem deseja transformar carinho em lembran&ccedil;a.</p>
+      </div>
+
+      <div class="gift-suggestions-premium">
+        <div class="gift-showcase">
+          <article class="gift-category-card glass-card">
+            <div class="gift-category-top">
+              <span class="gift-category-icon" aria-hidden="true">&#10023;</span>
+              <div>
+                <span class="gift-category-kicker">Acess&oacute;rios</span>
+                <h3>Brilhos em prata</h3>
+              </div>
+            </div>
+            <ul class="gift-suggestion-list">
+              <li>Brincos (prata)</li>
+              <li>Colar (prata)</li>
+              <li>Pulseira (prata)</li>
+            </ul>
+          </article>
+
+          <article class="gift-category-card glass-card">
+            <div class="gift-category-top">
+              <span class="gift-category-icon" aria-hidden="true">&#10022;</span>
+              <div>
+                <span class="gift-category-kicker">Roupas</span>
+                <h3>Pe&ccedil;as delicadas</h3>
+              </div>
+            </div>
+            <ul class="gift-suggestion-list">
+              <li>Camisa tamanho M</li>
+              <li>Cal&ccedil;a tamanho 38</li>
+              <li>Vestido tamanho M</li>
+            </ul>
+          </article>
+
+          <article class="gift-category-card glass-card">
+            <div class="gift-category-top">
+              <span class="gift-category-icon" aria-hidden="true">&#9672;</span>
+              <div>
+                <span class="gift-category-kicker">Cal&ccedil;ados</span>
+                <h3>Conforto elegante</h3>
+              </div>
+            </div>
+            <ul class="gift-suggestion-list">
+              <li>Calçados: 35/36</li>
+              <li>T&ecirc;nis</li>
+              <li>Papete</li>
+            </ul>
+          </article>
+
+          <article class="gift-category-card glass-card">
+            <div class="gift-category-top">
+              <span class="gift-category-icon" aria-hidden="true">&#10038;</span>
+              <div>
+                <span class="gift-category-kicker">Beleza</span>
+                <h3>Toques de encanto</h3>
+              </div>
+            </div>
+            <ul class="gift-suggestion-list">
+              <li>Perfume</li>
+              <li>Creme</li>
+              <li>Maquiagem</li>
+            </ul>
+          </article>
+
+          <article class="gift-category-card glass-card">
+            <div class="gift-category-top">
+              <span class="gift-category-icon" aria-hidden="true">&#9733;</span>
+              <div>
+                <span class="gift-category-kicker">Time</span>
+                <h3>Carinho alvinegro</h3>
+              </div>
+            </div>
+            <ul class="gift-suggestion-list">
+              <li>Blusa do Galo</li>
+              <li>Moletom do Galo</li>
+              <li>Garrafa do Galo</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="gift-pix-card glass-card">
+          <div class="gift-pix-ornament" aria-hidden="true">&#10022;</div>
+          <div class="gift-pix-content">
+            <span class="gift-pix-kicker">Presente via PIX</span>
+            <h3>Para contribuir com carinho</h3>
+            <p>Chave PIX</p>
+            <div class="gift-pix-key" id="giftPixKey">156.434.786.92</div>
+            <span class="gift-pix-owner">Mariana Lacerda Fonseca</span>
+          </div>
+          <div class="gift-pix-actions">
+            <button class="btn-primary gift-copy-btn" id="copyPixBtn" type="button" data-pix="156.434.786.92">
+              <span>Copiar chave PIX</span>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M8 8V5.8C8 4.8 8.8 4 9.8 4h8.4c1 0 1.8.8 1.8 1.8v8.4c0 1-.8 1.8-1.8 1.8H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M4 9.8C4 8.8 4.8 8 5.8 8h8.4c1 0 1.8.8 1.8 1.8v8.4c0 1-.8 1.8-1.8 1.8H5.8C4.8 20 4 19.2 4 18.2V9.8Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </button>
+            <span class="gift-copy-feedback" id="copyPixFeedback" role="status" aria-live="polite">PIX copiado com sucesso &#10024;</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: PRESENTES -->
+      <div class="dashboard-panel active gift-panel" id="panel-gifts" aria-hidden="true">
+        <div class="mgmt-form-card glass-card gift-admin-card">
+          <h3 class="mgmt-form-title">Adicionar Presente</h3>
+          <div class="mgmt-form-row">
+            <div class="form-group mgmt-input-group">
+              <label for="giftName">Nome do Presente</label>
+              <input type="text" id="giftName" placeholder="Ex: Perfume, Flores, Livro..." autocomplete="off" />
+            </div>
+            <div class="form-group mgmt-input-group">
+              <label for="giftCategory">Categoria</label>
+              <input type="text" id="giftCategory" placeholder="Ex: Beleza, Decora&ccedil;&atilde;o..." autocomplete="off" />
+            </div>
+            <button class="btn-primary mgmt-add-btn" id="giftAddBtn">
+              <span>Adicionar</span>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="mgmt-feedback" id="giftFeedback"></div>
+        </div>
+
+        <div class="mgmt-stats gift-stats">
+          <div class="mgmt-stat glass-card mgmt-stat--available"><span class="mgmt-stat-icon">&#9711;</span><span class="mgmt-stat-num" id="giftStatAvail">0</span><span class="mgmt-stat-label">Dispon&iacute;veis</span></div>
+          <div class="mgmt-stat glass-card mgmt-stat--reserved"><span class="mgmt-stat-icon">&#9672;</span><span class="mgmt-stat-num" id="giftStatReserved">0</span><span class="mgmt-stat-label">Reservados</span></div>
+          <div class="mgmt-stat glass-card mgmt-stat--delivered"><span class="mgmt-stat-icon">&#10022;</span><span class="mgmt-stat-num" id="giftStatDelivered">0</span><span class="mgmt-stat-label">Entregues</span></div>
+          <div class="mgmt-stat glass-card mgmt-stat--total"><span class="mgmt-stat-icon">&#9733;</span><span class="mgmt-stat-num" id="giftStatTotal">0</span><span class="mgmt-stat-label">Total</span></div>
+        </div>
+
+        <div class="mgmt-controls gift-controls">
+          <div class="mgmt-search-wrapper">
+            <svg class="mgmt-search-icon" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input type="text" class="mgmt-search" id="giftSearch" placeholder="Buscar presente..." autocomplete="off" />
+          </div>
+          <div class="mgmt-tabs" id="giftTabs">
+            <button class="mgmt-tab active" data-filter="all">Todos</button>
+            <button class="mgmt-tab" data-filter="available">Dispon&iacute;veis</button>
+            <button class="mgmt-tab" data-filter="reserved">Reservados</button>
+            <button class="mgmt-tab" data-filter="delivered">Entregues</button>
+          </div>
+        </div>
+
+        <div class="mgmt-list gift-list" id="giftList">
+          <div class="mgmt-empty" id="giftEmpty"><span>&#10022;</span><p>Nenhum presente adicionado ainda.</p></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MODAL PRESENTE -->
+  <div class="mgmt-modal-overlay" id="giftModal" role="dialog" aria-modal="true" aria-labelledby="giftModalTitle">
+    <div class="mgmt-modal glass-card">
+      <button class="mgmt-modal-close" id="giftModalClose" aria-label="Fechar">&#10005;</button>
+      <h3 class="mgmt-modal-title" id="giftModalTitle">Reservar Presente</h3>
+      <p class="mgmt-modal-gift" id="giftModalGiftName"></p>
+      <div class="form-group">
+        <label for="giftModalPerson">Seu nome</label>
+        <input type="text" id="giftModalPerson" placeholder="Quem está reservando?" autocomplete="off" />
+      </div>
+      <div class="mgmt-modal-actions">
+        <button class="btn-primary" id="giftModalConfirm"><span id="giftModalBtnLabel">Confirmar Reserva</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN RSVP OCULTO: acesse com #admin-mariana no final da URL -->
+  <section class="admin-section section-fade" id="adminPanel" hidden>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">&#10022; Administra&ccedil;&atilde;o &#10022;</span>
+        <h2 class="section-title">Painel de Presen&ccedil;as</h2>
+        <p class="section-desc">Controle elegante das confirma&ccedil;&otilde;es salvas no Firebase.</p>
+      </div>
+
+      <div class="admin-shell glass-card">
+        <div class="admin-toolbar">
+          <div class="admin-total">
+            <span id="adminTotalGuests">0</span>
+            <small>convidados no total</small>
+          </div>
+          <div class="admin-actions">
+            <div class="mgmt-search-wrapper admin-search-wrapper">
+              <svg class="mgmt-search-icon" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <input type="text" class="mgmt-search" id="adminSearch" placeholder="Pesquisar convidados..." autocomplete="off" />
+            </div>
+            <button class="btn-secondary admin-export-btn" id="adminExportCsv" type="button">Exportar CSV</button>
+          </div>
+        </div>
+
+        <div class="admin-status" id="adminStatus" role="status" aria-live="polite"></div>
+        <div class="admin-list" id="adminGuestList">
+          <div class="mgmt-empty" id="adminEmpty"><span>&#10022;</span><p>Nenhuma confirma&ccedil;&atilde;o encontrada.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- MAP -->
+<section class="map-section section-fade" id="location">
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-tag">&#10022; Localização &#10022;</span>
+      <h2 class="section-title">Encontre o Caminho</h2>
+      <p class="section-desc">Deixe as estrelas guiarem você até nós</p>
+    </div>
+
+    <div class="map-wrapper glass-card">
+
+      <!-- MAPA -->
+      <div class="map-art real-map">
+
+        <!-- IMAGEM DO MAPA -->
+        <img 
+          src="mapa.jpg" 
+          alt="Mapa do local da festa"
+          class="real-map-image"
+        />
+
+        <!-- PIN -->
+        <div class="map-pin">
+
+          <div class="map-pin-dot"></div>
+          <div class="map-pin-pulse"></div>
+
+          <div class="map-pin-label glass-card">
+            <strong>DF Eventos - Delícias Festas e Decorações</strong>
+            <span>Av. Ivaí, 1219 · Dom Bosco</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- INFORMAÇÕES -->
+      <div class="map-info">
+
+        <div class="map-detail">
+          <span class="map-detail-icon">📍</span>
+
+          <div>
+            <strong>Endereço</strong>
+            <p>
+              Av. Ivaí, 1219, Bairro Dom Bosco,
+              Belo Horizonte · MG
+            </p>
+          </div>
+        </div>
+
+        <div class="map-detail">
+          <span class="map-detail-icon">🕗</span>
+
+          <div>
+            <strong>Data e Hora</strong>
+            <p>
+              20 de Junho de 2026, a partir das 22h00
+            </p>
+          </div>
+        </div>
+
+        <div class="map-btn-wrapper">
+
+          <a
+            class="btn-secondary"
+            href="https://www.google.com/maps/place/DF+Eventos+-+Delícias+Festas+e+Decorações/@-19.9124947,-44.0016202,1071m/data=!3m2!1e3!4b1!4m6!3m5!1s0xa69694da27e6af:0x7ccf1e6d8886c9ed!8m2!3d-19.9124947!4d-44.0016202!16s%2Fg%2F1tq4s9hj?entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            rel="noopener">
+            <span>Ver no Google Maps</span>
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <canvas id="footerCanvas" class="footer-canvas"></canvas>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="footer-name">Mariana</span>
+        <span class="footer-years">XV Anos</span>
+      </div>
+      <p class="footer-quote">"E lembro que as estrelas cantavam e os filhos de Deus bradavam de alegria."</p>
+      <div class="footer-divider">&#10022; &#10022; &#10022;</div>
+      <p class="footer-credit">Criado com amor · Inspirado em "A Noite Estrelada" de Vincent van Gogh</p>
+      <p class="footer-date">20 · 06 · 2026</p>
+    </div>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
