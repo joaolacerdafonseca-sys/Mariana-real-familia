@@ -228,8 +228,8 @@ section { position: relative; z-index: 10; }
 .about-card { padding: 34px 26px; text-align: center; transition: var(--transition); }
 .about-card:hover { transform: translateY(-8px); border-color: rgba(200,168,75,0.45); box-shadow: 0 20px 55px rgba(0,0,0,0.5), 0 0 30px rgba(200,168,75,0.12); }
 .about-icon { font-size: 2.1rem; margin-bottom: 14px; display: block; }
-.about-card h3 { font-family: var(--font-heading); font-size: 1.05rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 10px; }
-.about-card p { color: rgba(253,246,227,0.72); font-size: 0.97rem; line-height: 1.6; }
+.about-card h3 { font-family: var(--font-heading); font-size: 2rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 10px; }
+.about-card p { color: rgba(253,246,227,0.72); font-size: 1.5rem; line-height: 1.6; }
 
 /* ─── COUNTDOWN ──────────────────────────────────────────────── */
 .countdown-section { padding: 100px 0; text-align: center; }
