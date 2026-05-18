@@ -563,69 +563,106 @@ function initRSVP() {
     submitBtn.querySelector('span').textContent = 'Salvando...';
     setRsvpFeedback('Salvando sua confirmação nas estrelas...', 'loading');
 
-    try {
-      const normalizedName = normalizeName(name);
-      const duplicate = await rsvpCollection().where('normalizedName', '==', normalizedName).limit(1).get();
+   try {
+  const normalizedName = normalizeName(name);
 
-      if (!duplicate.empty) {
-        setRsvpFeedback('Esta presença já foi confirmada anteriormente.', 'error');
-        clearRsvpFeedback();
-        return;
-      }
+  const duplicate = await rsvpCollection()
+    .where('normalizedName', '==', normalizedName)
+    .limit(1)
+    .get();
 
-      const guest = {
-        name,
-        companions: companionNames.length,
-        companionNames,
-        message,
-        status: 'confirmed',
-        normalizedName,
-        time: new Date().toLocaleString('pt-BR'),
-        createdAtMs: Date.now(),
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      };
+  if (!duplicate.empty) {
+    setRsvpFeedback(
+      'Esta presença já foi confirmada anteriormente.',
+      'error'
+    );
+    clearRsvpFeedback();
+    return;
+  }
 
- const docRef = rsvpCollection().doc(normalizedName);
+  const guest = {
+    name,
+    companions: companionNames.length,
+    companionNames,
+    message,
+    status: 'confirmed',
+    normalizedName,
+    time: new Date().toLocaleString('pt-BR'),
+    createdAtMs: Date.now(),
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+  };
 
-await docRef.set({
-  name,
-  companionNames,
-  message,
-  time: new Date().toLocaleString('pt-BR'),
-});
+  // Cria documento usando o nome normalizado
+  const docRef = rsvpCollection().doc(normalizedName);
 
-guests.push({ ...guest, id: docRef.id });
+  // Salva no Firebase
+  await docRef.set(guest);
 
-      guests.push({ ...guest, id: docRef.id });
-      guestCount = guests.reduce((sum, g) => sum + 1 + (g.companionNames || []).length, 0);
-      localStorage.setItem(CONFIG.rsvpStorageKey, JSON.stringify(guests));
-      localStorage.setItem(CONFIG.countStorageKey, guestCount.toString());
-
-    // Limpar formulário
-      nameInput.value = '';
-      document.getElementById('guestMessage').value = '';
-      listEl.innerHTML = '';
-      companionCount = 0;
-      syncCompanionUI();
-
-    // Feedback de sucesso
-      const succ = document.getElementById('rsvpSuccess');
-      succ.classList.add('show');
-      setTimeout(() => succ.classList.remove('show'), 4000);
-      setRsvpFeedback('Presença salva com sucesso no Firebase.', 'success');
-      clearRsvpFeedback();
-
-      renderGuests();
-    } catch (err) {
-      console.error('Erro ao confirmar RSVP:', err);
-      setRsvpFeedback('Não foi possível salvar agora. Verifique sua conexão e tente novamente.', 'error');
-      clearRsvpFeedback(6000);
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.classList.remove('is-loading');
-      submitBtn.querySelector('span').textContent = 'Confirmar Presença';
-    }
+  // Salva localmente
+  guests.push({
+    ...guest,
+    id: docRef.id
   });
+
+  guestCount = guests.reduce(
+    (sum, g) => sum + 1 + (g.companionNames || []).length,
+    0
+  );
+
+  localStorage.setItem(
+    CONFIG.rsvpStorageKey,
+    JSON.stringify(guests)
+  );
+
+  localStorage.setItem(
+    CONFIG.countStorageKey,
+    guestCount.toString()
+  );
+
+  // Limpar formulário
+  nameInput.value = '';
+  document.getElementById('guestMessage').value = '';
+  listEl.innerHTML = '';
+  companionCount = 0;
+
+  syncCompanionUI();
+
+  // Feedback sucesso
+  const succ = document.getElementById('rsvpSuccess');
+
+  succ.classList.add('show');
+
+  setTimeout(() => {
+    succ.classList.remove('show');
+  }, 4000);
+
+  setRsvpFeedback(
+    'Presença salva com sucesso no Firebase.',
+    'success'
+  );
+
+  clearRsvpFeedback();
+
+  renderGuests();
+
+} catch (err) {
+  console.error('Erro ao confirmar RSVP:', err);
+
+  setRsvpFeedback(
+    'Não foi possível salvar agora. Verifique sua conexão e tente novamente.',
+    'error'
+  );
+
+  clearRsvpFeedback(6000);
+
+} finally {
+  submitBtn.disabled = false;
+
+  submitBtn.classList.remove('is-loading');
+
+  submitBtn.querySelector('span').textContent =
+    'Confirmar Presença';
+});
 }
 
 /* ══════════════════════════════════════════════════════════════
