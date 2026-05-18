@@ -585,14 +585,16 @@ function initRSVP() {
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       };
 
-      await rsvpCollection()
-  .doc(normalizedName)
-  .set({
-    name,
-    companionNames,
-    message,
-    time: new Date().toLocaleString('pt-BR'),
-  });
+ const docRef = rsvpCollection().doc(normalizedName);
+
+await docRef.set({
+  name,
+  companionNames,
+  message,
+  time: new Date().toLocaleString('pt-BR'),
+});
+
+guests.push({ ...guest, id: docRef.id });
 
       guests.push({ ...guest, id: docRef.id });
       guestCount = guests.reduce((sum, g) => sum + 1 + (g.companionNames || []).length, 0);
