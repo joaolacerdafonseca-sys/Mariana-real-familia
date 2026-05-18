@@ -585,11 +585,7 @@ function initRSVP() {
     companions: companionNames.length,
     companionNames,
     message,
-    status: 'confirmed',
-    normalizedName,
-    time: new Date().toLocaleString('pt-BR'),
-    createdAtMs: Date.now(),
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+     time: new Date().toLocaleString('pt-BR'),
   };
 
   // Cria documento usando o nome normalizado
