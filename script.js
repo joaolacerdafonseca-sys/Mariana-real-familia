@@ -662,6 +662,7 @@ function initRSVP() {
 
   submitBtn.querySelector('span').textContent =
     'Confirmar Presença';
+}
 });
 }
 
